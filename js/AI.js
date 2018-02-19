@@ -12,7 +12,7 @@ const Constants = {
 };
 
 // for judgement convenience
-let wrappedBoard = [];
+// let wrappedBoard = [];
 
 function wrapBoard(board){
     let padding = new Array(Constants.ChessBoard.COL_NUM + 4).fill(
@@ -24,29 +24,34 @@ function wrapBoard(board){
     return [padding, padding, ...board, padding, padding];
 }
 
-// like this 'b' 'b'
-function hasOneStepNeighbour(board, color, rowPos, colPos){
-    return (board[rowPos-1][colPos-1] == color) ||
-        (board[rowPos-1][colPos] == color) ||
-        (board[rowPos-1][colPos+1] == color) ||
-        (board[rowPos][colPos-1] == color) ||
-        (board[rowPos][colPos+1] == color) ||
-        (board[rowPos+1][colPos-1] == color) ||
-        (board[rowPos+1][colPos] == color) ||
-        (board[rowPos+1][colPos+1] == color);
-}
-
-// like this 'b' 'e' 'b'
-function hasTwoStepNeighbour(board, color, rowPos, colPos){
-    return (board[rowPos-2][colPos-2] == color) ||
-        (board[rowPos-2][colPos] == color) ||
-        (board[rowPos-2][colPos+2] == color) ||
-        (board[rowPos][colPos-2] == color) ||
-        (board[rowPos][colPos+2] == color) ||
-        (board[rowPos+2][colPos-2] == color) ||
-        (board[rowPos+2][colPos] == color) ||
-        (board[rowPos+2][colPos+2] == color);
-}
+let UtilMethods = {
+    // wrappedBoard
+    isPositionEmpty(board, rowPos, colPos){
+        return (board[rowPos][colPos] === 'e');
+    },
+    // like this 'b' 'b'
+    hasOneStepNeighbour(board, color, rowPos, colPos){
+        return (board[rowPos-1][colPos-1] == color) ||
+            (board[rowPos-1][colPos] == color) ||
+            (board[rowPos-1][colPos+1] == color) ||
+            (board[rowPos][colPos-1] == color) ||
+            (board[rowPos][colPos+1] == color) ||
+            (board[rowPos+1][colPos-1] == color) ||
+            (board[rowPos+1][colPos] == color) ||
+            (board[rowPos+1][colPos+1] == color);
+    },
+    // like this 'b' 'e' 'b'
+    hasTwoStepNeighbour(board, color, rowPos, colPos){
+        return (board[rowPos-2][colPos-2] == color) ||
+            (board[rowPos-2][colPos] == color) ||
+            (board[rowPos-2][colPos+2] == color) ||
+            (board[rowPos][colPos-2] == color) ||
+            (board[rowPos][colPos+2] == color) ||
+            (board[rowPos+2][colPos-2] == color) ||
+            (board[rowPos+2][colPos] == color) ||
+            (board[rowPos+2][colPos+2] == color);
+    }
+};
 
 
 // return type
@@ -63,10 +68,12 @@ function generateAllNextPossibleMove(wrappedBoard, color){
         colEnd = Constants.ChessBoard.COL_NUM + 2;
     for(let i = 2; i < rowEnd;i++){
         for(let j = 2;j < colEnd;j++){
-            if(hasOneStepNeighbour(wrappedBoard, color, i, j)){
-                oneStepNeighbours.push([i-2, j-2]);
-            }else if(hasTwoStepNeighbour(wrappedBoard, color, i, j)){
-                twoStepNeighbours.push([i-2, j-2]);
+            if(UtilMethods.isPositionEmpty(wrappedBoard, i, j)){
+                if(UtilMethods.hasOneStepNeighbour(wrappedBoard, color, i, j)){
+                    oneStepNeighbours.push([i-2, j-2]);
+                }else if(UtilMethods.hasTwoStepNeighbour(wrappedBoard, color, i, j)){
+                    twoStepNeighbours.push([i-2, j-2]);
+                }
             }
         }
     }
