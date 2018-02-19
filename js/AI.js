@@ -5,9 +5,9 @@ const Constants = {
         COL_NUM:15
     },
     Chesspiece:{
-        BLACK:1,
-        WHITE:0,
-        EMPTY:'e'
+        BLACK: 1,
+        WHITE: 0,
+        EMPTY: 'e'
     }
 };
 
@@ -66,9 +66,9 @@ function generateAllNextPossibleMove(wrappedBoard, color){
             if(hasOneStepNeighbour(wrappedBoard, color, i, j)){
                 oneStepNeighbours.push([i-2, j-2]);
             }else if(hasTwoStepNeighbour(wrappedBoard, color, i, j)){
-                twoStepNeigbbours.push([i-2, j-2]);
+                twoStepNeighbours.push([i-2, j-2]);
             }
         }
     }
-    return [...oneStepNeighbours, ...twoStepNeigbbours];
+    return [...oneStepNeighbours, ...twoStepNeighbours];
 }
