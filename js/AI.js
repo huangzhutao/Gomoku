@@ -35,13 +35,18 @@ let UtilMethods = {
     },
     // like this 'b' 'e' 'b'
     hasTwoStepNeighbour(board, color, rowPos, colPos){
+<<<<<<< HEAD
         /*return (board[rowPos-2][colPos-2] == color) ||
+=======
+        return (board[rowPos-2][colPos-2] == color) ||
+>>>>>>> refs/remotes/origin/master
             (board[rowPos-2][colPos] == color) ||
             (board[rowPos-2][colPos+2] == color) ||
             (board[rowPos][colPos-2] == color) ||
             (board[rowPos][colPos+2] == color) ||
             (board[rowPos+2][colPos-2] == color) ||
             (board[rowPos+2][colPos] == color) ||
+<<<<<<< HEAD
             (board[rowPos+2][colPos+2] == color);*/
         return false;
     }
@@ -63,11 +68,37 @@ StepGenerator.copyAndWrapBoard = (function(){
                 ...row, 
                 Constants.Chesspiece.BORDER,
                 Constants.Chesspiece.BORDER
+=======
+            (board[rowPos+2][colPos+2] == color);
+    }
+}
+
+StepGenerator.Constants = Constants;
+StepGenerator.UtilMethods = UtilMethods;
+
+StepGenerator.copyAndWrapBoard = (function(){
+    let padding = new Array(Constants.ChessBoard.COL_NUM + 4).fill(
+        Constants.Chesspiece.EMPTY);
+
+    return function(board){
+        let res = [padding, padding];
+        for(let row of board){
+            res.push([
+                Constants.Chesspiece.EMPTY, 
+                Constants.Chesspiece.EMPTY, 
+                ...row, 
+                Constants.Chesspiece.EMPTY,
+                Constants.Chesspiece.EMPTY
+>>>>>>> refs/remotes/origin/master
             ]);
         }
         res.push(padding, padding);
         return res;
+<<<<<<< HEAD
     };
+=======
+    }
+>>>>>>> refs/remotes/origin/master
 })();
 
 // return type
@@ -82,6 +113,7 @@ StepGenerator.generateAllNextPossibleMove = function(wrappedBoard, color){
     
     let rowEnd = Constants.ChessBoard.ROW_NUM + 2,
         colEnd = Constants.ChessBoard.COL_NUM + 2;
+<<<<<<< HEAD
     
     //console.log(wrappedBoard);
     for(let i = 2; i < rowEnd; i++){
@@ -91,6 +123,16 @@ StepGenerator.generateAllNextPossibleMove = function(wrappedBoard, color){
                     oneStepNeighbours.push([i-2, j-2]);
                 }else if(UtilMethods.hasTwoStepNeighbour(wrappedBoard, color, i, j)){
                     twoStepNeighbours.push([i-2, j-2]);
+=======
+    console.log(rowEnd, colEnd);
+    for(let i = 2; i < rowEnd;i++){
+        for(let j = 2;j < colEnd;j++){
+            if(UtilMethods.isPositionEmpty(wrappedBoard, i, j)){
+                if(UtilMethods.hasOneStepNeighbour(wrappedBoard, color, i, j)){
+                    oneStepNeighbours.push([i, j]);
+                }else if(UtilMethods.hasTwoStepNeighbour(wrappedBoard, color, i, j)){
+                    twoStepNeighbours.push([i, j]);
+>>>>>>> refs/remotes/origin/master
                 }
             }
         }
